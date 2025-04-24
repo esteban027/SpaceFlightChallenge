@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ArticleModel: Decodable {
+struct ArticleModel: Codable, Identifiable {
     let id: Int
     let title: String
     let authors: [AuthorModel]

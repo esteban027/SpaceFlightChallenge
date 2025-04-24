@@ -11,17 +11,18 @@ enum SpaceFlightServiceEndpoints: Endpoints {
     
     case articles
     case articleById(Id : String)
+    case searchArticles(query: String)
     
     var baseURL: String {
         switch self {
-        case .articles, .articleById:
+        case .articles, .articleById, .searchArticles:
             return "api.spaceflightnewsapi.net"
         }
     }
     
     var path: String {
         switch self {
-        case .articles, .articleById:
+        case .articles, .articleById, .searchArticles:
             return "/v4/articles/"
         }
     }
@@ -32,6 +33,8 @@ enum SpaceFlightServiceEndpoints: Endpoints {
             return nil
         case .articleById(Id: let Id):
             return [URLQueryItem(name: "id", value: Id)]
+        case .searchArticles(query: let query):
+            return [URLQueryItem(name: "search", value: query)]
         }
     }
     var headers: [String : String]? {
@@ -43,7 +46,7 @@ enum SpaceFlightServiceEndpoints: Endpoints {
     
     var method: HTTPMethod {
         switch self {
-        case .articles, .articleById:
+        case .articles, .articleById, .searchArticles:
             return .get
         }
         

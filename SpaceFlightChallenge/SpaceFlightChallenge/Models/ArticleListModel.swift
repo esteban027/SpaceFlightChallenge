@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ArticleListModel: Decodable {
-    let next: String
-    let previous: String
+struct ArticleListModel: Codable {
+    let next: String?
+    let previous: String?
     let results: [ArticleModel]
 }
