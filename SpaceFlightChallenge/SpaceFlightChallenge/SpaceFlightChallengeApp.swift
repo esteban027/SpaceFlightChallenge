@@ -11,7 +11,7 @@ import SwiftUI
 struct SpaceFlightChallengeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ArticleListElementView()
         }
     }
 }
