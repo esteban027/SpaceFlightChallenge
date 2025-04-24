@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ArticleListView: View {
-    var viewModel = ArticleListViewModel()
+    @State  var viewModel = ArticleListViewModel()
+ //   @Binding var selectedArticle: Article?
     
     var body: some View {
        NavigationSplitView {
@@ -37,6 +38,17 @@ struct ArticleListView: View {
         detail: {
            Text("Select a Landmark")
        }
+        .searchable(text: $viewModel.query)
+        .onSubmit(of: .search) {
+            viewModel.searchArticles()
+        }
+        .onChange(of: viewModel.query) {_ , newQuery in
+            if newQuery.isEmpty {
+                viewModel.searchArticles()
+            }
+        }
+        
+        
     }
 }
 

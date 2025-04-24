@@ -39,6 +39,8 @@ enum SpaceFlightServiceEndpoints: Endpoints {
     }
     var headers: [String : String]? {
         switch self {
+        case .searchArticles(query: let query):
+            return ["search": query]
         default:
             return nil
         }
