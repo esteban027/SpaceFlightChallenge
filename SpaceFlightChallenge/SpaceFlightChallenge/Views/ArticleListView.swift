@@ -13,51 +13,52 @@ struct ArticleListView: View {
     
     var body: some View {
         if let articleList = viewModel.articleList {
-            NavigationSplitView {
-                List {
-                    ForEach(articleList.results) { article in
-                        NavigationLink(destination: ArticleDetailView(article: article)) {
-                            ArticleListElementView(article: article)
-                                .frame(height: 400)
-                            
-                        }.onAppear {
-                            viewModel.loadMoreArticles(with: article.id)
+            ScrollViewReader { scrollProxy in
+                NavigationSplitView {
+                        List {
+                            ForEach(articleList.results) { article in
+                                NavigationLink(destination: ArticleDetailView(article: article)) {
+                                    ArticleListElementView(article: article)
+                                        .frame(height: 400)
+                                        .id(article.id)
+                                    
+                                }.onAppear {
+                                    viewModel.loadMoreArticles(with: article.id)
+                                }
+                            }
                         }
+                        .navigationTitle("SpaceFlight News")
+                }
+                detail: {
+                    if let article = articleList.results.first {
+                        ArticleDetailView(article: article)
+                    } else {
+                        ProgressView()
                     }
                 }
-                .navigationTitle("SpaceFlight News")
-                
-            }
-            detail: {
-                if let article = articleList.results.first {
-                    ArticleDetailView(article: article)
-                } else {
-                    ProgressView()
-                }
-            }
-            .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always))
-            .onSubmit(of: .search) {
-                viewModel.receiveAndProcessArticles()
-            }
-            .onChange(of: viewModel.query) {_ , newQuery in
-                if newQuery.isEmpty {
+                .searchable(text: $viewModel.query, placement: .navigationBarDrawer(displayMode: .always))
+                .onSubmit(of: .search) {
                     viewModel.receiveAndProcessArticles()
+                    if let firstArticleID = articleList.results.first?.id {
+                        scrollProxy.scrollTo(firstArticleID, anchor: .top)
+                    }
+
+                                    
+                }
+                .onChange(of: viewModel.query) {_ , newQuery in
+                    if newQuery.isEmpty {
+                        viewModel.receiveAndProcessArticles()
+                        if let firstArticleID = articleList.results.first?.id {
+                            scrollProxy.scrollTo(firstArticleID, anchor: .top)
+                        }
+
+                    }
                 }
             }
-            
-            
-            
-        } else {
-            //if viewModel.fetchFailed {
-            //  ErrorView(error: nil)
-            //  } else {
-            ProgressView()
-            // }
         }
-        
     }
 }
-
-#Preview {
-    ArticleListView()
-}
+        
+        #Preview {
+            ArticleListView()
+        }
