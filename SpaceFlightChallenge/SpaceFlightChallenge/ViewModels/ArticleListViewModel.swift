@@ -8,6 +8,7 @@ import Foundation
 import Combine
 
 @Observable class ArticleListViewModel: ArticleListViewModelProtocol {
+    
    
     //private let articleListPublisher = PassthroughSubject<ArticleListModel, Never>()
     private var cancellables: Set<AnyCancellable> = .init()
@@ -19,35 +20,28 @@ import Combine
     
     init(networkRequest: Requestable = NetworkRequestable()) {
         self.networkRequest = networkRequest
-        fetchArticles(by: nil).sink(
-            receiveCompletion: {[weak self] error in
-               // self?.error = error
-                //self?.fetchFailed = true
-            },
-            receiveValue: {[weak self] articleList in
-                self?.articleList = articleList
-            }).store(in: &cancellables)
+        receiveAndProcessArticles()
+
     }
     
-    internal func fetchArticles(by query: String?) -> AnyPublisher<ArticleListModel, NetworkError> {
-        if let query {
+    internal func fetchArticles(by query: String) -> AnyPublisher<ArticleListModel, NetworkError> {
             let endPoint = SpaceFlightServiceEndpoints.searchArticles(query: query)
             let request = RequestModel(endpoints: endPoint)
             
             return self.networkRequest.request(request)
-        } else {
-            let endPoint = SpaceFlightServiceEndpoints.articles
-            let request = RequestModel(endpoints: endPoint)
-            
-            return self.networkRequest.request(request)
-        }
     }
     
-    func searchArticles(){
+    func 
+    essArticles(){
         fetchArticles(by: query).sink(
-            receiveCompletion: {[weak self] error in
-               // self?.error = error
-                //self?.fetchFailed = true
+            receiveCompletion: {[weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    // Successfully completed the fetch
+                    break
+                }
             },
             receiveValue: {[weak self] articleList in
                 self?.articleList = articleList

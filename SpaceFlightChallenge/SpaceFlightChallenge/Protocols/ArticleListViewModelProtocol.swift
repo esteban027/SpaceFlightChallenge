@@ -11,5 +11,5 @@ protocol ArticleListViewModelProtocol {
     var articleList: ArticleListModel? { get }
     var error : NetworkError? { get }
     
-    func fetchArticles(by query: String?) -> AnyPublisher<ArticleListModel, NetworkError>
+    func fetchArticles(by query: String) -> AnyPublisher<ArticleListModel, NetworkError>
 }

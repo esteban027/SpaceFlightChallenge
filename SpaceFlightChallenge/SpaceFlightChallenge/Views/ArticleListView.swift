@@ -40,11 +40,11 @@ struct ArticleListView: View {
        }
         .searchable(text: $viewModel.query)
         .onSubmit(of: .search) {
-            viewModel.searchArticles()
+            viewModel.receiveAndProcessArticles()
         }
         .onChange(of: viewModel.query) {_ , newQuery in
             if newQuery.isEmpty {
-                viewModel.searchArticles()
+                viewModel.receiveAndProcessArticles()
             }
         }
         
