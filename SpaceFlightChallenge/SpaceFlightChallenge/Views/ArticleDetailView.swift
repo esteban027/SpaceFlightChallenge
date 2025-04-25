@@ -20,7 +20,7 @@ struct ArticleDetailView: View {
                                 .resizable()
                                 .scaledToFit()
                         } else if phase.error != nil {
-                            ImageErrorView(error: phase.error)
+                            ErrorView(error: phase.error)
                         } else {
                             ProgressView()
                         }

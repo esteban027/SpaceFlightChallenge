@@ -34,6 +34,7 @@ import Combine
             receiveCompletion: {[weak self] completion in
                 switch completion {
                 case .failure(let error):
+                    self?.error = error
                     print(error.localizedDescription)
                 case .finished:
                     // Successfully completed the fetch
@@ -54,6 +55,7 @@ import Combine
             receiveCompletion: {[weak self] completion in
                 switch completion {
                 case .failure(let error):
+                    self?.error = error
                     print(error.localizedDescription)
                 case .finished:
                     // Successfully completed the fetch

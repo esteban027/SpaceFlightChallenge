@@ -19,5 +19,5 @@ struct ErrorView: View {
 }
 
 #Preview {
-    ImageErrorView(error: nil)
+    ErrorView(error: nil)
 }

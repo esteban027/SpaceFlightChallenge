@@ -24,6 +24,8 @@ struct ArticleListView: View {
                     }
                 }
             }
+        } else if let error = viewModel.error {
+            ErrorView(error: error)
         }
     }
 }
