@@ -17,7 +17,6 @@ struct ArticleDetailView: View {
                     AsyncImage(url: URL(string: article.imageURL)) { phase in
                         if let image = phase.image {
                             // Displays the loaded image.
-                            HStack {
                             if horizontalSizeClass != .compact {
                                 image
                                     .resizable()
@@ -28,7 +27,6 @@ struct ArticleDetailView: View {
                                     .resizable()
                                     .scaledToFit()
                             }
-                        }
                     } else if phase.error != nil {
                         ErrorView(error: phase.error)
                     } else {
