@@ -10,8 +10,6 @@ import Combine
 @testable import SpaceFlightChallenge
 
 final class ArticleListViewModelTests: XCTestCase {
-    var cancellables = Set<AnyCancellable>()
-    
     func testFetchArticlesSuccess() {
         let testArticles = ArticleListModel(next: nil,
                                             previous: nil,
