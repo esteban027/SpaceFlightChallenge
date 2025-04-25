@@ -10,5 +10,5 @@ import Foundation
 struct ArticleListModel: Codable {
     let next: String?
     let previous: String?
-    let results: [ArticleModel]
+    var results: [ArticleModel]
 }
