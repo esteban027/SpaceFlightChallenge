@@ -12,15 +12,19 @@ struct ArticleListView: View {
     
     var body: some View {
         if let articleList = viewModel.articleList {
-            List {
-                ForEach(articleList.results) { article in
-                    NavigationLink(destination: ArticleDetailView(article: article)) {
-                        ArticleListElementView(article: article)
-                            .frame(height: 400)
-                            .id(article.id)
-                        
-                    }.onAppear {
-                        viewModel.loadMoreArticles(with: article.id)
+            if articleList.results.isEmpty {
+                EmptyView()
+            } else {
+                List {
+                    ForEach(articleList.results) { article in
+                        NavigationLink(destination: ArticleDetailView(article: article)) {
+                            ArticleListElementView(article: article)
+                                .frame(height: 400)
+                                .id(article.id)
+                            
+                        }.onAppear {
+                            viewModel.loadMoreArticles(with: article.id)
+                        }
                     }
                 }
             }

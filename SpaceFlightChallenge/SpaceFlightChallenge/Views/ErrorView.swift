@@ -14,7 +14,8 @@ struct ErrorView: View {
             Image(systemName: "xmark.octagon.fill")
                 .foregroundColor(.red)
             Text(error?.localizedDescription ?? "Content Could Not Be Loaded" )
-            .multilineTextAlignment(.center)    }
+            .multilineTextAlignment(.center)
+        }
     }
 }
 
