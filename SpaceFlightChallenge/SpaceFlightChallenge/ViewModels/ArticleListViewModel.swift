@@ -6,6 +6,7 @@
 //
 import Foundation
 import Combine
+import OSLog
 
 @Observable class ArticleListViewModel: ArticleListViewModelProtocol {
     
@@ -35,7 +36,7 @@ import Combine
                 switch completion {
                 case .failure(let error):
                     self?.error = error
-                    print(error.localizedDescription)
+                    Logger().log("\(error.localizedDescription) at Article List View model receiveAndProcessArticles")
                 case .finished:
                     // Successfully completed the fetch
                     break
@@ -56,7 +57,7 @@ import Combine
                 switch completion {
                 case .failure(let error):
                     self?.error = error
-                    print(error.localizedDescription)
+                    Logger().log("\(error.localizedDescription) at Article List View model loadMoreArticles")
                 case .finished:
                     // Successfully completed the fetch
                     break
