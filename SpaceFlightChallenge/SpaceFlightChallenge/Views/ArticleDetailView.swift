@@ -36,7 +36,7 @@ struct ArticleDetailView: View {
                                 .frame(alignment: .leading)
                                 .padding(.leading)
                             
-                            Text("name")
+                            Text(article.authors.map { $0.name }.joined(separator: ", "))
                                 .font(.footnote)
                                 .frame(alignment: .leading)
                                 .padding(.leading)
