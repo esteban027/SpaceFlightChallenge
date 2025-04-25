@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import OSLog
 
 public class NetworkRequestable: Requestable {
     public var requestTimeOut: Float = 30
@@ -26,7 +27,8 @@ public class NetworkRequestable: Requestable {
             }
             .decode(type: T.self, decoder: JSONDecoder())
             .mapError{ error in
-                NetworkError.invalidJSON(String(describing: error))
+                 Logger().log("Invalid JSON Network Requestable")
+                 return NetworkError.invalidJSON(String(describing: error))
             }
             .eraseToAnyPublisher()
     }
